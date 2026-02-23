@@ -21,7 +21,7 @@
         width: 100%;
         max-width: 1000px;
         margin: 0 auto;
-        padding: 24px 16px;
+        padding: 12px 10px;
         min-height: 100vh;
         display: flex;
         flex-direction: column;
@@ -32,21 +32,21 @@
         background: var(--card-bg);
         backdrop-filter: blur(var(--bg-blur));
         -webkit-backdrop-filter: blur(var(--bg-blur));
-        border-radius: 24px;
-        padding: 32px;
+        border-radius: 20px;
+        padding: 20px 16px;
         border: 1px solid var(--card-border);
         box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
       }
 
       .qr-header {
-        margin-bottom: 32px;
+        margin-bottom: 20px;
         display: flex;
         align-items: center;
         justify-content: space-between;
       }
 
       .qr-brand-title {
-        font-size: 24px;
+        font-size: 20px;
         font-weight: 800;
         letter-spacing: -0.02em;
         color: #fff;
@@ -54,31 +54,31 @@
       }
 
       .qr-brand-sub {
-        font-size: 14px;
+        font-size: 13px;
         color: var(--text-dim);
       }
 
       .qr-main {
         display: grid;
         grid-template-columns: 1fr;
-        gap: 32px;
+        gap: 20px;
         align-items: start;
       }
 
       .qr-scanner-side {
         display: flex;
         flex-direction: column;
-        gap: 16px;
+        gap: 12px;
       }
 
       .qr-video-wrap {
         position: relative;
-        border-radius: 20px;
+        border-radius: 16px;
         overflow: hidden;
         background: #000;
         aspect-ratio: 1/1;
         width: 100%;
-        max-width: 400px;
+        max-width: 250px;
         margin: 0 auto;
         box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.05);
       }
@@ -181,33 +181,34 @@
 
       .qr-info-side {
         background: rgba(255, 255, 255, 0.1);
-        border-radius: 20px;
-        padding: 24px;
+        border-radius: 16px;
+        padding: 16px;
         border: 1px solid rgba(255, 255, 255, 0.1);
       }
 
       .qr-info-title {
-        font-size: 18px;
+        font-size: 16px;
         font-weight: 600;
         color: #fff;
-        margin-bottom: 16px;
+        margin-bottom: 12px;
+        display: none; /* Hide heading to save space */
       }
 
       .qr-info-list {
         list-style: none;
         padding: 0;
-        margin: 0 0 24px 0;
+        margin: 0 0 16px 0;
         display: flex;
         flex-direction: column;
-        gap: 12px;
+        gap: 8px;
       }
 
       .qr-info-list li {
         display: flex;
-        gap: 12px;
-        font-size: 14px;
+        gap: 8px;
+        font-size: 13px;
         color: var(--text-dim);
-        line-height: 1.5;
+        line-height: 1.3;
       }
 
       .qr-info-list li span:first-child {
@@ -301,24 +302,62 @@
       }
 
       .qr-footer {
-        margin-top: 32px;
+        margin-top: 16px;
         text-align: center;
-        font-size: 13px;
+        font-size: 12px;
         color: var(--text-dim);
-        padding-top: 24px;
+        padding-top: 16px;
         border-top: 1px solid var(--card-border);
       }
 
       @media (min-width: 768px) {
+        .qr-page {
+          padding: 24px;
+        }
+        .qr-card {
+           padding: 40px;
+           max-width: 800px;
+           margin: 0 auto;
+        }
+        .qr-header {
+          margin-bottom: 32px;
+        }
+        .qr-brand-title {
+          font-size: 28px;
+        }
+        .qr-brand-sub {
+          font-size: 15px;
+        }
         .qr-main {
           grid-template-columns: 1fr 1fr;
           gap: 40px;
+          align-items: center;
         }
-        .qr-header {
-          margin-bottom: 40px;
+        .qr-video-wrap {
+           max-width: 320px; /* Diperbesar dari 250px untuk desktop */
         }
-        .qr-card {
-          padding: 40px;
+        .qr-info-side {
+          padding: 24px;
+        }
+        .qr-info-title {
+           display: block; /* Munculkan kembali judul instruksi */
+           font-size: 18px;
+        }
+        .qr-info-list {
+           gap: 16px;
+           margin-bottom: 24px;
+        }
+        .qr-info-list li {
+           font-size: 15px;
+        }
+        .qr-btn {
+           padding: 12px 20px;
+           font-size: 15px;
+        }
+        .qr-footer {
+          margin-top: 32px;
+          font-size: 14px;
+          padding-top: 24px;
         }
       }
     </style>
@@ -367,6 +406,7 @@
                 <span class="icon">&#xe800;</span>
                 <span>Scan QR Code Anda</span>
               </button>
+              <input type="file" id="qr-input-file" accept="image/*" capture="environment" style="display: none;" />
               <a href="login.html" class="qr-btn secondary">
                 <span class="icon">&#xe804;</span>
                 <span>Kembali ke Login</span>
@@ -384,7 +424,8 @@
       </div>
     </div>
 
-    <!-- jsQR lokal (Lebih stabil & bisa offline) -->
+    <!-- jsQR lokal -->
+    <!-- jsQR lokal -->
     <script src="jsQR.js"></script>
     <script>
       var hostname = window.location.hostname;
@@ -393,19 +434,52 @@
       const video = document.getElementById("qr-video");
       const statusText = document.getElementById("qr-status-text");
       const btnToggle = document.getElementById("btnToggleCamera");
-      const btnChrome = document.getElementById("btnChromeIntent");
-      const btnCopy = document.getElementById("btnCopyLink");
       const resultEl = document.getElementById("qr-result");
       const errorEl = document.getElementById("qr-error");
+      const fileInput = document.getElementById("qr-input-file");
+      
+      fileInput.addEventListener("change", function(e) {
+          if (e.target.files && e.target.files.length > 0) {
+              showStatus("Memproses gambar...");
+              const file = e.target.files[0];
+              const reader = new FileReader();
+              reader.onload = function(event) {
+                  const img = new Image();
+                  img.onload = function() {
+                      const canvas = document.createElement("canvas");
+                      const ctx = canvas.getContext("2d");
+                      // Scale down if too big to avoid memory usage
+                      const scale = Math.min(1, 1000 / Math.max(img.width, img.height));
+                      canvas.width = img.width * scale;
+                      canvas.height = img.height * scale;
+                      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                      
+                      const code = jsQR(imageData.data, canvas.width, canvas.height, {
+                          inversionAttempts: "dontInvert"
+                      });
+                      
+                      if (code && code.data) {
+                          handleQrData(code.data);
+                      } else {
+                          showError("QR Code tidak ditemukan pada gambar. Coba foto ulang dengan lebih jelas.");
+                      }
+                      fileInput.value = ""; // reset
+                  };
+                  img.src = event.target.result;
+              };
+              reader.readAsDataURL(file);
+          }
+      });
+      
+      let stream = null;
+      let isRunning = false;
+      let scanId = null;
 
       // Pastikan video tampil saat mulai diputar
       video.addEventListener("playing", function () {
         video.style.opacity = 1;
       });
-
-      let stream = null;
-      let isRunning = false;
-      let scanId = null;
 
       function showStatus(message) {
         statusText.textContent = message;
@@ -413,34 +487,16 @@
 
       function showResult(text) {
         resultEl.style.display = "block";
-        resultEl.textContent = "QR terbaca: " + text;
+        resultEl.textContent = "Berhasil: " + text;
         errorEl.style.display = "none";
       }
 
       function showError(message) {
         errorEl.style.display = "block";
-        errorEl.innerHTML =
-          message +
-          '<br><br><small style="display:block; border-top: 1px solid rgba(255, 255, 255, 0.3); padding-top: 8px;"><b>Tips:</b> Gunakan Google Chrome untuk fitur scan QR.</small>';
+        errorEl.innerHTML = message;
         resultEl.style.display = "none";
       }
-
-      // Handler Salin Link
-      btnCopy.addEventListener("click", function () {
-        const dummy = document.createElement("input");
-        document.body.appendChild(dummy);
-        dummy.value = window.location.href;
-        dummy.select();
-        document.execCommand("copy");
-        document.body.removeChild(dummy);
-
-        const originalText = btnCopy.querySelector("span:last-child").textContent;
-        btnCopy.querySelector("span:last-child").textContent = "Link Tersalin!";
-        setTimeout(() => {
-          btnCopy.querySelector("span:last-child").textContent = originalText;
-        }, 2000);
-      });
-
+      
       function stopCamera() {
         if (scanId) {
           cancelAnimationFrame(scanId);
@@ -457,39 +513,32 @@
           "Scan QR Code Anda";
         showStatus("Kamera berhenti. Tekan lagi untuk scan QR.");
       }
-
+      
       function startCamera() {
         if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-          showError(
-            "Browser tidak mendukung akses kamera. Coba gunakan Chrome / Edge versi terbaru.",
-          );
+          // Opsi fallback: buka kamera bawaan HP menggunakan input file (diizinkan di HTTP)
+          showStatus("Membuka kamera bawaan HP");
+          fileInput.click();
           return;
         }
 
         navigator.mediaDevices
-          .getUserMedia({
-            video: {
-              facingMode: "environment",
-            },
-          })
+          .getUserMedia({ video: { facingMode: "environment" } })
           .then(function (s) {
             stream = s;
             video.srcObject = s;
             video.play();
             isRunning = true;
-            btnToggle.querySelector("span:last-child").textContent =
-              "Hentikan Kamera";
+            btnToggle.querySelector("span:last-child").textContent = "Hentikan Kamera";
             showStatus("Kamera aktif. Arahkan ke QR Code voucher Anda.");
             scanLoop();
           })
           .catch(function (err) {
             console.error(err);
-            showError(
-              "Gagal mengakses kamera. Pastikan izin kamera sudah diizinkan di browser.",
-            );
+            showError("Gagal mengakses kamera. Pastikan izin kamera sudah diizinkan di browser Anda.");
           });
       }
-
+      
       function scanLoop() {
         if (!isRunning) return;
         const canvas = document.createElement("canvas");
@@ -517,52 +566,47 @@
         scanId = requestAnimationFrame(scanLoop);
       }
 
+      // Handler Data QR
       function handleQrData(data) {
-        showResult(data);
-        showStatus("QR berhasil dibaca, mengisi kode voucher...");
+        showResult("Data terbaca!");
+        showStatus("Menghubungkan...");
+        stopCamera();
 
-        try {
-          // Asumsi: data berisi kode voucher langsung
-          var loginUrl = "login.html";
-          // Bawa kode voucher sebagai parameter agar login.html bisa menangkapnya jika diperlukan
-          window.location.href =
-            loginUrl + "?voucher=" + encodeURIComponent(data);
-        } catch (e) {
-          console.error(e);
-          showError("Terjadi kesalahan saat memproses QR.");
-        } finally {
-          stopCamera();
-        }
+        setTimeout(() => {
+            try {
+              // Jika isi QR adalah URL (Misal http://192.168.30.1/login?username=X)
+              if(data.indexOf("http") === 0) {
+                  window.location.href = data;
+              } else {
+                  // Jika isi QR hanya kode voucher biasa
+                  var loginUrl = "login.html";
+                  window.location.href = loginUrl + "?username=" + encodeURIComponent(data) + "&password=" + encodeURIComponent(data);
+              }
+            } catch (e) {
+              console.error(e);
+              showError("Terjadi kesalahan sistem saat redirect.");
+            }
+        }, 800);
       }
 
+      // Tombol Scan Utama
       btnToggle.addEventListener("click", function () {
-        // Cek jika di Android, langsung coba buka di Chrome
-        if (/Android/i.test(navigator.userAgent) && !window.chrome) {
-          const currentUrl = window.location.href;
-          const intentUrl = currentUrl.replace(/^https?:\/\//, "");
-          const chromeIntent =
-            "intent://" +
-            intentUrl +
-            "#Intent;scheme=http;package=com.android.chrome;S.browser_fallback_url=" +
-            encodeURIComponent(currentUrl) +
-            ";end";
-          
-          window.location.href = chromeIntent;
-          return;
-        }
-
-        if (isRunning) {
-          stopCamera();
-        } else {
-          startCamera();
-        }
+          if (isRunning) {
+            stopCamera();
+          } else {
+            startCamera();
+          }
       });
-
+      
       // Otomatis jalankan kamera saat halaman dibuka
       window.addEventListener("load", function () {
-        // Beri sedikit jeda agar transisi halaman selesai
-        setTimeout(startCamera, 500);
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+          setTimeout(startCamera, 500);
+        } else {
+          showStatus("Tekan tombol scan untuk membuka kamera.");
+        }
       });
+
     </script>
   </body>
 </html>
