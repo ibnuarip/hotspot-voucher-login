@@ -1,90 +1,62 @@
+# FORONG HOTSPOT — Login Page MikroTik
 
-## Membuat login Member menjadi default
-Edit file login.html di baris 14 menjadi 
-```
-<body onload="member();">
-```
+Halaman login custom untuk hotspot MikroTik **FORONG HOTSPOT**. Template ini berbasis [Hotspot6 by Laksamadi Guko](https://laksa19.github.io) dengan fitur login voucher, member, dan scan QR code.
 
-## Input otomatis huruf kecil (auto lowercase) mode voucher dan member
-Edit file login.html mulai baris 120 -> 148
-```
-// set password = username
-function setpass(){
-  var user = username.value		
-  password.value = user;
-}
-username.onkeyup = setpass; 
-// change to voucher mode
-function voucher(){
-  username.focus();
-  username.onkeyup = setpass;
-  username.placeholder = "Kode Voucher";
-  username.style = "border-radius:3px;"
-  password.type = "hidden";
-  infologin.innerHTML  = "Masukkan Kode Voucher kemudian klik login.";
-}
-// change to member mode
-function member(){
-  username.focus();
-  username.onkeyup = "";
-  username.placeholder = "Username";
-  username.style = "border-radius:3px 3px 0px 0px;"
-  password.type = "password";	
-  infologin.innerHTML  = "Masukkan Username dan Password kemudian klik login.";
-}
-//-->
+## Fitur
 
+- **Login Voucher** — Masukkan kode voucher dan langsung terkoneksi WiFi (password otomatis disamakan dengan username)
+- **Login Member** — Login menggunakan username dan password terpisah
+- **Scan QR Code** — Scan QR voucher menggunakan [MyQR Scanner](https://laksa19.github.io/myqr/) dari Laksa19, otomatis redirect dan login
+- **Tabel Paket** — Menampilkan daftar paket internet beserta harga
+- **Halaman Status** — Menampilkan info koneksi (IP, MAC, upload, download, sisa waktu/kuota)
+- **Halaman Logout** — Menampilkan ringkasan pemakaian setelah logout
 
-```
-menjadi
-```
-//set lowercase
-function setlower(){
-var cekMode = password.type;
-if (cekMode === "hidden"){
-  var user = username.value 
-  user = user.toLowerCase();
-  username.value = user;  
-  password.value = user;
-} else if (cekMode === "password"){
-  var user = username.value 
-  user = user.toLowerCase();
-  username.value = user;
-} 
-}
+## Struktur File
 
-username.onkeyup = setlower;
+| File            | Keterangan                                |
+| --------------- | ----------------------------------------- |
+| `login.html`    | Halaman utama login (voucher, member, QR) |
+| `status.html`   | Halaman status koneksi user               |
+| `logout.html`   | Halaman logout                            |
+| `alogin.html`   | Redirect otomatis setelah login berhasil  |
+| `success.html`  | Halaman konfirmasi berhasil terkoneksi    |
+| `error.html`    | Halaman error                             |
+| `redirect.html` | Halaman redirect                          |
+| `rlogin.html`   | Halaman re-login                          |
+| `radvert.html`  | Halaman advert/iklan                      |
+| `style.css`     | Stylesheet tampilan                       |
+| `errors.txt`    | Pesan error (Bahasa Indonesia)            |
+| `errors-en.txt` | Pesan error (English)                     |
+| `font/`         | Font icon custom                          |
 
-// change to voucher mode
-function voucher(){
-  username.focus();
-  username.placeholder = "Kode Voucher";
-  username.style = "border-radius:3px;"
-  password.type = "hidden";
-  password.value = username.value;
-  infologin.innerHTML  = "Masukkan Kode Voucher kemudian klik login.";
-}
+## Cara Upload ke MikroTik
 
-// change to member mode
-function member(){
-  username.focus();
-  username.placeholder = "Username";
-  username.style = "border-radius:3px 3px 0px 0px;"
-  password.type= "password";
-  password.value = "";
-  infologin.innerHTML  = "Masukkan Username dan Password kemudian klik login.";
-}
-//-->
+### 1. Persiapan
 
-```
-## Fitur QR Code Scanner
+Pastikan semua file sudah diuji coba menggunakan Laragon di lokal.
 
-Untuk menggunakan fitur QR CODE SCANNER Anda perlu menambahkan script berikut di MikroTik via Terminal.
-```
-/ip hotspot walled-garden ip
+### 2. Upload via Winbox
 
-add action=accept comment="Mikhmon QR Code Scanner" disabled=no dst-host=laksa19.github.io
+1. Buka **Winbox** dan login ke router MikroTik
+2. Klik menu **Files** → masuk ke folder `hotspot`
+3. Drag & drop semua file dari komputer ke jendela Files
+4. Replace file lama jika diminta
 
-```
-Centang HTTP PAP di hotspot server profile.
-# hotspot-voucher-login
+### 3. Konfigurasi Walled Garden
+
+Tambahkan `laksa19.github.io` di **Walled Garden** agar fitur scan QR bisa diakses sebelum login:
+
+- IP → Hotspot → Walled Garden
+- Tambahkan rule: `Dst. Host = laksa19.github.io`, Action = `allow`
+
+### 4. Testing
+
+1. **Login manual** — Konek ke WiFi hotspot, masukkan kode voucher, pastikan berhasil login
+2. **Login member** — Klik tombol Member, masukkan username & password, pastikan berhasil login
+3. **Scan QR** — Klik tombol QR Code, scan QR voucher dari kertas yang dicetak via Mikhmon, pastikan otomatis login
+
+## Kredit
+
+- Template Hotspot6 by [Laksamadi Guko](https://laksa19.github.io)
+- QR Scanner: [MyQR by Laksa19](https://laksa19.github.io/myqr/)
+- Manajemen Voucher: [Mikhmon](https://laksa19.github.io/?mikhmon/v3)
