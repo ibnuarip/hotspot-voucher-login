@@ -66,6 +66,8 @@ iframe  {
   float:left; 
   height:22px; 
   width:100%;
+  background: transparent;
+  border: none;
 }
 .main{
   background: rgba(255, 255, 255, 0.15);
@@ -355,9 +357,7 @@ iframe  {
 .table2 {
   width: 100%;
   border-collapse: collapse !important;
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background-color: #ffffff;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -368,13 +368,13 @@ iframe  {
 .table2 td,
 .table2 th {
   padding: 10px 14px;
-  border: 1px solid rgba(255, 255, 255, 0.15) !important;
-  color: #ffffff;
+  border: 1px solid #f0f0f0 !important;
+  color: #2d3748;
   font-size: 13px;
 }
 
 .table2 td a {
-  color: #ffffff;
+  color: #4a5568;
   text-decoration: underline;
 }
 
