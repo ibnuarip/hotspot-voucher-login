@@ -49,7 +49,6 @@ body::before {
   font-family: "fontello";
   font-style: normal;
   font-weight: normal;
-  speak: none;
   display: inline-block;
   text-decoration: inherit;
   width: 1em;
@@ -346,7 +345,9 @@ iframe  {
   transition: background 0.2s ease;
 }
 
-.table td, th, a{
+.table td, 
+.table th, 
+.table a {
   color: #ffffff;
   text-decoration: none;
 }
@@ -354,18 +355,44 @@ iframe  {
 .table2 {
   width: 100%;
   border-collapse: collapse !important;
-  background-color: #fff;
-  text-align:left;
-}
-.table2 td,
-.table2 th {
-  padding: 5px;
-  border: 1px solid #000 !important;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  margin: 10px 0;
 }
 
-.table2 td, th, a{
-  color: #000;
-  text-decoration: none;
+.table2 td,
+.table2 th {
+  padding: 10px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  color: #ffffff;
+  font-size: 13px;
+}
+
+.table2 td a {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+/* User Profile Icons */
+.welcome-icon {
+  font-size: 48px;
+  display: inline-block;
+  margin: 10px 0;
+  color: #ffffff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.success-icon {
+  font-size: 80px;
+  display: inline-block;
+  margin: 15px 0;
+  color: #ffffff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 @keyframes fadein {
@@ -449,54 +476,54 @@ body {
   }
 
   .main {
-    max-width: 480px;
+    max-width: 400px; /* Reduced from 480px */
     width: 100%;
-    padding: 32px;
+    padding: 28px 24px; /* Reduced from 32px */
     margin: 20px auto;
   }
 
   .brand {
-    font-size: 28px;
-    margin: 20px 10px 24px 10px;
+    font-size: 26px; /* Reduced from 28px */
+    margin: 16px 10px 20px 10px;
   }
 
   .username,
   .password {
-    font-size: 16px;
-    min-height: 52px;
-    padding: 14px 18px;
+    font-size: 15px;
+    min-height: 46px; /* Reduced from 52px */
+    padding: 10px 14px;
   }
 
   .button {
-    font-size: 17px;
-    min-height: 56px;
-    padding: 16px 24px;
+    font-size: 15px;
+    min-height: 46px; /* Reduced from 56px */
+    padding: 12px 20px;
   }
 
   .small-button {
-    font-size: 13px;
-    min-height: 42px;
-    padding: 12px 8px;
+    font-size: 12px;
+    min-height: 38px; /* Reduced from 42px */
+    padding: 8px 10px;
   }
 
   .table-wrapper {
-    margin: 24px 0;
+    margin: 20px 0;
   }
 
   .table caption {
-    font-size: 18px;
-    margin-bottom: 16px;
+    font-size: 16px;
+    margin-bottom: 12px;
   }
 
   .table td,
   .table th {
-    padding: 14px 18px;
-    font-size: 15px;
+    padding: 10px 12px; /* Reduced from 14px 18px */
+    font-size: 13px;
   }
 
   .info-text {
-    font-size: 14px;
-    margin: 20px 0;
+    font-size: 13px;
+    margin: 12px 0;
   }
 }
 
@@ -505,27 +532,62 @@ body {
    ============================================ */
 @media screen and (min-width: 1024px) {
   body {
-    padding: 40px 24px;
+    padding: 30px 24px;
   }
 
   .main {
-    max-width: 520px;
-    padding: 40px;
+    max-width: 380px; /* Reduced from 520px to fit desktop beautifully */
+    padding: 24px;
   }
 
   .brand {
-    font-size: 32px;
-    margin: 24px 10px 28px 10px;
+    font-size: 24px; /* Reduced from 32px */
+    margin: 12px 10px 16px 10px;
+  }
+
+  .username,
+  .password {
+    font-size: 14px;
+    min-height: 42px;
+    padding: 10px 12px;
+  }
+
+  .button {
+    font-size: 14px;
+    min-height: 42px;
+    padding: 10px 16px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+  }
+
+  .small-button {
+    font-size: 11px;
+    min-height: 34px;
+    padding: 6px 8px;
   }
 
   .table td,
   .table th {
-    padding: 16px 20px;
-    font-size: 15px;
+    padding: 8px 10px;
+    font-size: 13px;
+  }
+
+  .table caption {
+    font-size: 14px;
+    margin-bottom: 8px;
   }
 
   .info-text {
-    font-size: 15px;
+    font-size: 12px;
+    margin: 10px 0;
+  }
+
+  .welcome-icon {
+    font-size: 42px;
+  }
+
+  .success-icon {
+    font-size: 64px;
   }
 }
 

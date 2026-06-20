@@ -35,9 +35,9 @@ $(endif)
 <form action="$(link-logout)" name="logout" onSubmit="return openLogout()">
 
 $(if login-by == 'trial')
-	<div style="margin-top:20px; text-align: center;"><h3>Welcome</h3><i style="font-size:50px;" class="icon icon-user-circle-o">&#xf2be;</i> <h3>trial user</h3></div><br>
+	<div style="margin-top:20px; text-align: center;"><h3>Welcome</h3><i class="icon icon-user-circle-o welcome-icon">&#xf2be;</i> <h3>trial user</h3></div><br>
 $(elif login-by != 'mac')
-	<div style="margin-top:20px; text-align: center;"><h3>Welcome</h3><i style="font-size:50px;" class="icon icon-user-circle-o">&#xf2be;</i> <h3 id="user">$(username)</h3></div><br>
+	<div style="margin-top:20px; text-align: center;"><h3>Welcome</h3><i class="icon icon-user-circle-o welcome-icon">&#xf2be;</i> <h3 id="user">$(username)</h3></div><br>
 $(endif)
 <table class="table2">
 	<tr><td align="right" style="width: 40%;">IP Address <i class="icon icon-sitemap">&#xf0e8;</i> </td><td>$(ip)</td></tr>
