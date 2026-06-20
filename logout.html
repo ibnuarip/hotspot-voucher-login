@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <meta name="theme-color" content="#3B5998" />
 <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;"/>
-<link rel="stylesheet" href="style.css?v=1.3">
+<link rel="stylesheet" href="style.css?v=1.7">
 </head>
 
 <body>
@@ -31,12 +31,7 @@
     <tr><td align="right">Terkoneksi <i class="icon icon-exchange">&#xf0ec;</i> </td><td>$(uptime)</td></tr>
     <tr><td align="right">Upload <i class="icon icon-upload">&#xe808;</i> </td><td>$(bytes-in-nice)</td></tr>
     <tr><td align="right">Download <i class="icon icon-download">&#xe809;</i> </td><td>$(bytes-out-nice)</td></tr>
-$(if remain-bytes-total)
-    <tr><td align="right">Sisa Kuota <i class="icon icon-hourglass-2">&#xf252;</i> </td><td>$(remain-bytes-total-nice)</td></tr>
-$(endif)
-$(if session-time-left)
-    <tr><td align="right">Sisa Waktu <i class="icon icon-clock">&#xe805;</i> </td><td>$(session-time-left)</td></tr>
-$(endif)
+
 </table>
 <br>
 <form action="$(link-login)" name="login" onSubmit="return openLogin()">

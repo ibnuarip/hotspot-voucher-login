@@ -8,7 +8,7 @@ $(endif)
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <meta name="theme-color" content="#3B5998" />
 <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;"/>
-<link rel="stylesheet" href="style.css?v=1.3">
+<link rel="stylesheet" href="style.css?v=1.7">
 <script language="JavaScript">
 
 // $(if advert-pending == 'yes')
@@ -45,19 +45,14 @@ $(endif)
     <tr><td align="right">Upload <i class="icon icon-upload">&#xe808;</i> </td><td>$(bytes-in-nice)</td></tr>
     <tr><td align="right">Download <i class="icon icon-download">&#xe809;</i> </td><td>$(bytes-out-nice)</td></tr>
 	<tr><td align="right">Terkoneksi <i class="icon icon-exchange">&#xf0ec;</i> </td><td>$(uptime)</td></tr>
-$(if remain-bytes-total)
-    <tr><td align="right">Sisa Kuota <i class="icon icon-hourglass-2">&#xf252;</i> </td><td>$(remain-bytes-total-nice)</td></tr>
-$(endif)
-$(if session-time-left)
-    <tr><td align="right">Sisa Waktu <i class="icon icon-clock">&#xe805;</i> </td><td>$(session-time-left)</td></tr>
-$(endif)
+
 $(if blocked == 'yes')
 	<tr><td align="right">Status <i class="icon icon-check">&#xe807;</i> </td><td><div style="color: #FF8080">
 <a href="$(link-advert)" target="hotspot_advert">advertisement</a> required</div></td></tr>
 $(elif refresh-timeout)
 	<tr><td align="right">Refresh <i class="icon icon-arrows-cw">&#xe800;</i> </td><td>$(refresh-timeout)</td></tr>
 $(endif)
-    <tr><td align="right">Expired <i class="icon icon-calendar">&#xe806;</i> </td><td style="padding-top:0px; padding-left:2px;"><iframe id="exp" frameborder="0" scrolling="no" src="about:blank" allowtransparency="true" style="background: transparent;"></iframe></td></tr>
+    <tr><td align="right">Expired <i class="icon icon-calendar">&#xe806;</i> </td><td style="padding-top:0px; padding-left:2px;"><iframe id="exp" frameborder="0" scrolling="no" src="about:blank" allowtransparency="true" style="background: transparent; width: 100%; height: 22px; border: none; color: #ffffff;"></iframe></td></tr>
 
 </table>
 $(if login-by-mac != 'yes')
@@ -71,26 +66,19 @@ $(endif)
 </div>
 <script type="text/javascript">
     document.getElementById('title').innerHTML = window.location.hostname + " > status";
-//get vaidity
-    var usr = document.getElementById('user').innerHTML
-    var url = "https://example.com/status/status.php?name="; // http://ip-server-mikhmon/mikhmonv2/status/status.php?name=
-    var SessionName = "wifijoss"
-    var getvalid = url+usr+"&session="+SessionName
     
-    var expIframe = document.getElementById('exp');
-    expIframe.onload = function() {
-        try {
-            var doc = expIframe.contentDocument || expIframe.contentWindow.document;
-            doc.body.style.backgroundColor = 'transparent';
-            doc.body.style.color = '#ffffff';
-            doc.body.style.margin = '0';
-            doc.body.style.padding = '0';
-        } catch(e) {
-            console.log("Iframe is cross-origin, styling via JS skipped.", e);
-        }
-    };
-    expIframe.src = getvalid;
-        
+    // Get Mikhmon Validity
+    var usrEl = document.getElementById('user');
+    var usr = usrEl ? usrEl.innerHTML : '';
+    if (window.location.protocol === 'file:') {
+        // Mock preview for local file:// testing
+        document.getElementById('exp').src = 'data:text/html;charset=utf-8,' + encodeURIComponent('<html><body style="background:transparent;color:%23ffffff;margin:0;padding:0;font-family:sans-serif;font-size:13px;text-align:left;">15 Hari (Demo)</body></html>');
+    } else if (usr) {
+        var url = "https://example.com/status/status.php?name="; // http://ip-server-mikhmon/mikhmonv2/status/status.php?name=
+        var SessionName = "wifijoss";
+        var getvalid = url + usr + "&session=" + SessionName;
+        document.getElementById('exp').src = getvalid;
+    }
 </script>
 </body>
 </html>
